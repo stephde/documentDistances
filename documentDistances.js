@@ -5,7 +5,7 @@ var _und = require('underscore'),
     stopWordsDe = require('./assets/stop-words_german_1_de.js').words
 
 
-module.exports = {
+var self = module.exports = {
 
 
     /*
@@ -31,7 +31,7 @@ module.exports = {
             //don't use numbers and non-word terms
             if( term.match(/\w+/g) && !term.match(/[0-9]+/g) &&
                 !(stopWordsDe[term] || stopWordsEn[term]))
-                tfIdf[term] = this.calcTfIdf(value.term_freq, value.doc_freq, docCount)
+                tfIdf[term] = self.calcTfIdf(value.term_freq, value.doc_freq, docCount)
         })
 
         return tfIdf
@@ -45,7 +45,7 @@ module.exports = {
                 var fieldVal = doc.term_vectors[field]
                 var result = {
                     id: doc._id,
-                    vector: this.getTfIdfVector(fieldVal)
+                    vector: self.getTfIdfVector(fieldVal)
                 }
                 tfIdfVectors.push(result)
             }
@@ -113,7 +113,7 @@ module.exports = {
                 if(i == j)
                     continue;
 
-                var distance = this.cosineDistance(vectorList[i].vector, vectorList[j].vector)
+                var distance = self.cosineDistance(vectorList[i].vector, vectorList[j].vector)
 
                 distancesForDoc.push({
                     source: vectorList[i].id,
