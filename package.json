@@ -1,6 +1,6 @@
 {
   "name": "documentDistances",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "This module calculates distances and similarities between given text documents",
   "main": "documentDistances.js",
   "scripts": {
