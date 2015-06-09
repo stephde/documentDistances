@@ -1,0 +1,32 @@
+{
+  "name": "documentDistances",
+  "version": "0.0.0",
+  "description": "This module calculates distances and similarities between given text documents",
+  "main": "documentDistances.js",
+  "scripts": {
+    "test": "mocha spec --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stephde/documentDistances"
+  },
+  "keywords": [
+    "text",
+    "analysis",
+    "document",
+    "distance"
+  ],
+  "author": "Stephan Detje <stephan.de@outlook.de> (http://stephde.github.io/)",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/stephde/documentDistances/issues"
+  },
+  "devDependencies": {
+    "mocha": "~2.2.5",
+    "chai": "~3.0.0"
+  },
+  "dependencies": {
+    "underscore": "~1.8.3",
+    "q": "~1.4.1"
+  }
+}
