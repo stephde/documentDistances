@@ -1,5 +1,4 @@
-var _und = require('underscore'),
-    q = require('q'),
+var _und = require('underscore')
 
     stopWordsEn = require('./assets/stop-words_english_2_en.js').words,
     stopWordsDe = require('./assets/stop-words_german_1_de.js').words
@@ -37,6 +36,9 @@ var self = module.exports = {
         return tfIdf
     },
 
+    /*
+     * Get the tfidf vectors for multiple docs
+     */
     getTfIdfVectors: function(docs, field){
         var tfIdfVectors = []
 
@@ -76,7 +78,7 @@ var self = module.exports = {
 
 
     /*
-     * Calculate the distance as in hana
+     * Calculate the distance between two doc vectors
      */
     cosineDistance: function(vectA, vectB) {
         // Normalise A, add missing keys of B with value 0
@@ -98,7 +100,7 @@ var self = module.exports = {
         return sum / Math.sqrt(vecLength != 0 ? vecLength : 1)
     },
 
-    /*** ToDo: use promises ***/
+
     calcDistanceMatrix: function(vectorList) {
         var results = [],
             max = 0,
@@ -142,8 +144,43 @@ var self = module.exports = {
         return results
     },
 
+    predictClassificationForDoc: function(doc, similarDocs, classifications){
+        var distances = [],
+            max = 0,
+            predictions = {}
 
-    /*** ToDo: use promises ***/
+        for(var i=0; i < similarDocs.length; i++){
+
+            //calcDistanceTo doc
+            var distance = self.cosineDistance(doc.vector, similarDocs[i].vector)
+
+            distances.push(distance)
+
+            //calculate the max distance for later normalization
+            max = Math.max(distance, max)
+        }
+
+        distances.forEach(function(elem){
+            elem = elem / max
+        })
+
+        //initialize predictions for each classification
+        classifications.forEach(function(elem){
+            predictions[elem] = {
+                name: elem,
+                value: 0
+            }
+        })
+
+        //sum up distances to create predictions
+        distances.forEach(function(distance, index){
+            predictions[classifications[index]].value += distance
+        })
+
+        return predictions
+    },
+
+
     calcDunnIndex: function(docs, matrix){
         var products = [],
             idDocMapping = {},
