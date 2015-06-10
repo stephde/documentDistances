@@ -1,17 +1,17 @@
 var _und = require('underscore'),
 
-    stopWordsEn = require('./assets/stop-words_english_2_en.js').words,
-    stopWordsDe = require('./assets/stop-words_german_1_de.js').words
+    stopWordsEn = require('./assets/stop-words_english_2_en.js'),
+    stopWordsDe = require('./assets/stop-words_german_1_de.js')
 
 
 var self = module.exports = {
 
     getStopWordsEn: function(){
-        return stopWordsEn
+        return stopWordsEn.wordsArray
     },
 
     getStopWordsDe: function(){
-        return stopWordsDe
+        return stopWordsDe.wordsArray
     },
 
     /*
@@ -36,7 +36,7 @@ var self = module.exports = {
         _und.each(terms, function(value, term) {
             //don't use numbers and non-word terms
             if( term.match(/\w+/g) && !term.match(/[0-9]+/g) &&
-                !(stopWordsDe[term] || stopWordsEn[term]))
+                !(stopWordsDe.wordsDictionary[term] || stopWordsEn.wordsDictionary[term]))
                 tfIdf[term] = self.calcTfIdf(value.term_freq, value.doc_freq, docCount)
         })
 
