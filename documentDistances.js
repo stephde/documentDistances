@@ -1,4 +1,4 @@
-var _und = require('underscore')
+var _und = require('underscore'),
 
     stopWordsEn = require('./assets/stop-words_english_2_en.js').words,
     stopWordsDe = require('./assets/stop-words_german_1_de.js').words
@@ -6,6 +6,13 @@ var _und = require('underscore')
 
 var self = module.exports = {
 
+    getStopWordsEn: function(){
+        return stopWordsEn
+    },
+
+    getStopWordsDe: function(){
+        return stopWordsDe
+    },
 
     /*
      * Calculate the tf-idf of a term
