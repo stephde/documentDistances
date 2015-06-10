@@ -108,6 +108,12 @@ var self = module.exports = {
     },
 
 
+    /***
+     * calculates the distance matrix between all documents in the vectorList
+     * only considers the top 10 links for each document
+     * @param vectorList - array of documents containing the termVectors
+     * @returns {Array} of links between the given documents
+     */
     calcDistanceMatrix: function(vectorList) {
         var results = [],
             max = 0,
@@ -151,7 +157,14 @@ var self = module.exports = {
         return results
     },
 
-    predictClassificationForDoc: function(doc, similarDocs, classifications){
+    /***
+     *
+     * @param docVector - termVector of the doc to be predicted
+     * @param similarDocs - array of documents containing termVectors
+     * @param classifications - array of classifications as string, classification[0] is for similarDocs[0], etc...
+     * @returns an object which contains a score for each classification in classifications
+     */
+    predictClassificationForDoc: function(docVector, similarDocs, classifications){
         var distances = [],
             max = 0,
             predictions = {}
@@ -159,7 +172,7 @@ var self = module.exports = {
         for(var i=0; i < similarDocs.length; i++){
 
             //calcDistanceTo doc
-            var distance = self.cosineDistance(doc.vector, similarDocs[i].vector)
+            var distance = self.cosineDistance(docVector, similarDocs[i].vector)
 
             distances.push(distance)
 
@@ -188,6 +201,12 @@ var self = module.exports = {
     },
 
 
+    /***
+     * calculates the dunn index for the given distance matrix
+     * @param docs - array of documents containing a classification and id
+     * @param matrix - matrix of links as calculated by calcDistanceMatrix
+     * @returns {{clusterValues: Array, intraClusterMaxs: Array, interClusterMins: Array, dunnIndex: number}}
+     */
     calcDunnIndex: function(docs, matrix){
         var products = [],
             idDocMapping = {},
