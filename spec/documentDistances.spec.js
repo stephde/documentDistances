@@ -16,4 +16,24 @@ describe('documentDistances', function(){
 
         expect(docDist.calcTfIdf(termFreq, docFreq, docCount)).to.be.a('Number')
     })
+
+    it('should return an english stopword array', function(){
+        var stopWordsEn = docDist.getStopWordsEn()
+
+        expect(stopWordsEn.length).to.be.greaterThan(0)
+        expect(stopWordsEn[0]).to.be.a('String')
+    })
+
+    it('should return a german stopword array', function(){
+        var stopWordsEn = docDist.getStopWordsDe()
+
+        expect(stopWordsEn.length).to.be.greaterThan(0)
+        expect(stopWordsEn[0]).to.be.a('String')
+    })
+
+    it('should return a valid tfidf', function(){
+        var tfidf = docDist.calcTfIdf(2, 3, 5)
+
+        expect(tfidf).to.be.a('number')
+    })
 })
