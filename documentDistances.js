@@ -167,7 +167,9 @@ var self = module.exports = {
     predictClassificationForDoc: function(docVector, similarDocs, classifications){
         var distances = [],
             max = 0,
-            predictions = {}
+            predictions = {},
+            numOfDocsPerClass = {},
+            uniqueClassifications = []
 
         for(var i=0; i < similarDocs.length; i++){
 
@@ -190,11 +192,19 @@ var self = module.exports = {
                 name: elem,
                 value: 0
             }
+            numOfDocsPerClass[elem] = 0
+            if(uniqueClassifications.indexOf(elem) < 0)
+                uniqueClassifications.push(elem)
         })
 
         //sum up distances to create predictions
         distances.forEach(function(distance, index){
             predictions[classifications[index]].value += distance
+            numOfDocsPerClass[classifications[index]]++
+        })
+
+        uniqueClassifications.forEach(function(elem){
+            predictions[elem.value] /= numOfDocsPerClass[elem]
         })
 
         return predictions
