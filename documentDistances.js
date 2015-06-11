@@ -204,10 +204,11 @@ var self = module.exports = {
         })
 
         uniqueClassifications.forEach(function(elem){
-            predictions[elem.value] /= numOfDocsPerClass[elem]
+            //predictions[elem.value] /= numOfDocsPerClass[elem]
+            result.push(predictions[elem])
         })
 
-        return predictions
+        return result
     },
 
 
