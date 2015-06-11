@@ -61,11 +61,23 @@ describe('documentDistances', function(){
         expect(stopWordsEn[0]).to.be.a('String')
     })
 
+    it('should return an english stopword dictionary', function(){
+        var stopWordsEn = docDist.getStopWordsDictEn()
+
+        expect(stopWordsEn).to.be.an('Object')
+    })
+
     it('should return a german stopword array', function(){
         var stopWordsEn = docDist.getStopWordsDe()
 
         expect(stopWordsEn.length).to.be.greaterThan(0)
         expect(stopWordsEn[0]).to.be.a('String')
+    })
+
+    it('should return an english stopword dictionary', function(){
+        var stopWordsDe = docDist.getStopWordsDictDe()
+
+        expect(stopWordsDe).to.be.an('Object')
     })
 
     it('should return a valid tfidf', function(){
@@ -109,7 +121,7 @@ describe('documentDistances', function(){
         var predictions = docDist.predictClassificationForDoc(
             docList[0], docList.slice(1), classifications)
 
-        expect(predictions).to.be.an('Object')
-        expect(predictions[classifications[0]].value).to.be.a('Number')
+        expect(predictions).to.be.an('Array')
+        expect(predictions[0].value).to.be.a('Number')
     })
 })

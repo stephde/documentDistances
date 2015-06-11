@@ -14,6 +14,14 @@ var self = module.exports = {
         return stopWordsDe.wordsArray
     },
 
+    getStopWordsDictEn: function(){
+        return stopWordsEn.wordsDictionary
+    },
+
+    getStopWordsDictDe: function(){
+        return stopWordsDe.wordsDictionary
+    },
+
     /*
      * Calculate the tf-idf of a term
      */
