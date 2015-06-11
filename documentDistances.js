@@ -169,7 +169,8 @@ var self = module.exports = {
             max = 0,
             predictions = {},
             numOfDocsPerClass = {},
-            uniqueClassifications = []
+            uniqueClassifications = [],
+            result = []
 
         for(var i=0; i < similarDocs.length; i++){
 
