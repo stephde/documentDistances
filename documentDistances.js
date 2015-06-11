@@ -96,10 +96,8 @@ var self = module.exports = {
         var sum = 0,
             vecLength = 0
         _und.each(vectA, function(value, key) {
-            if (vectB.hasOwnProperty(key)){
-                if(vectA[key] && vectB[key])
+            if (vectB.hasOwnProperty(key) && vectA[key] && vectB[key])
                 sum += vectA[key] * vectB[key]
-            }
             //else
             //  sum += Math.pow(vectA[key], 2)
 
