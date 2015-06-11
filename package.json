@@ -11,10 +11,9 @@
     "url": "https://github.com/stephde/documentDistances"
   },
   "keywords": [
-    "text",
-    "analysis",
-    "document",
-    "distance"
+    "text analysis",
+    "document distance",
+    "elasticsearch"
   ],
   "author": "Stephan Detje <stephan.de@outlook.de> (http://stephde.github.io/)",
   "license": "BSD-2-Clause",
