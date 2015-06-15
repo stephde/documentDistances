@@ -199,7 +199,7 @@ var self = module.exports = {
         classifications.forEach(function(elem){
             predictions[elem] = {
                 name: elem,
-                value: 0
+                probability: 0
             }
             numOfDocsPerClass[elem] = 0
             if(uniqueClassifications.indexOf(elem) < 0)
@@ -208,7 +208,7 @@ var self = module.exports = {
 
         //sum up distances to create predictions
         distances.forEach(function(distance, index){
-            predictions[classifications[index]].value += distance
+            predictions[classifications[index]].probability += distance
             numOfDocsPerClass[classifications[index]]++
         })
 
