@@ -220,7 +220,7 @@ var self = module.exports = {
 
         //normalize probabilities and push into result
         uniqueClassifications.forEach(function(elem){
-            predictions[elem.probability] /= totalProbability
+            predictions[elem].probability /= totalProbability
             result.push(predictions[elem])
         })
 
