@@ -175,6 +175,7 @@ var self = module.exports = {
     predictClassificationForDoc: function(docVector, similarDocs, classifications){
         var distances = [],
             max = 0,
+            totalProbability = 0,
             predictions = {},
             numOfDocsPerClass = {},
             uniqueClassifications = [],
@@ -212,8 +213,14 @@ var self = module.exports = {
             numOfDocsPerClass[classifications[index]]++
         })
 
+        // calculate totalProbability for normalization
         uniqueClassifications.forEach(function(elem){
-            //predictions[elem.value] /= numOfDocsPerClass[elem]
+            totalProbability += predictions[elem].probability
+        })
+
+        //normalize probabilities and push into result
+        uniqueClassifications.forEach(function(elem){
+            predictions[elem.probability] /= totalProbability
             result.push(predictions[elem])
         })
 
