@@ -122,6 +122,16 @@ describe('documentDistances', function(){
             docList[0], docList.slice(1), classifications)
 
         expect(predictions).to.be.an('Array')
-        expect(predictions[0].value).to.be.a('Number')
+        expect(predictions[0].probability).to.be.a('Number')
+    })
+
+    it('should return default value if no classification was made', function(){
+
+        var predictions = docDist.predictClassificationForDoc(
+            docList[0], [], classifications)
+
+        expect(predictions).to.be.an('Array')
+        expect(predictions[0].probability).to.eql(1)
+        expect(predictions[0].name).to.eql('None')
     })
 })

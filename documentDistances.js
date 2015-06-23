@@ -1,7 +1,9 @@
 var _und = require('underscore'),
 
     stopWordsEn = require('./assets/stop-words_english_2_en.js'),
-    stopWordsDe = require('./assets/stop-words_german_1_de.js')
+    stopWordsDe = require('./assets/stop-words_german_1_de.js'),
+
+    noProduct = 'None'
 
 
 var self = module.exports = {
@@ -192,37 +194,44 @@ var self = module.exports = {
             max = Math.max(distance, max)
         }
 
-        distances.forEach(function(elem){
-            elem = elem / max
-        })
+        if(max > 0){
+            distances.forEach(function(elem){
+                elem = elem / max
+            })
 
-        //initialize predictions for each classification
-        classifications.forEach(function(elem){
-            predictions[elem] = {
-                name: elem,
-                probability: 0
-            }
-            numOfDocsPerClass[elem] = 0
-            if(uniqueClassifications.indexOf(elem) < 0)
-                uniqueClassifications.push(elem)
-        })
+            //initialize predictions for each classification
+            classifications.forEach(function(elem){
+                predictions[elem] = {
+                    name: elem,
+                    probability: 0
+                }
+                numOfDocsPerClass[elem] = 0
+                if(uniqueClassifications.indexOf(elem) < 0)
+                    uniqueClassifications.push(elem)
+            })
 
-        //sum up distances to create predictions
-        distances.forEach(function(distance, index){
-            predictions[classifications[index]].probability += distance
-            numOfDocsPerClass[classifications[index]]++
-        })
+            //sum up distances to create predictions
+            distances.forEach(function(distance, index){
+                predictions[classifications[index]].probability += distance
+                numOfDocsPerClass[classifications[index]]++
+            })
 
-        // calculate totalProbability for normalization
-        uniqueClassifications.forEach(function(elem){
-            totalProbability += predictions[elem].probability
-        })
+            // calculate totalProbability for normalization
+            uniqueClassifications.forEach(function(elem){
+                totalProbability += predictions[elem].probability
+            })
 
-        //normalize probabilities and push into result
-        uniqueClassifications.forEach(function(elem){
-            predictions[elem].probability /= totalProbability
-            result.push(predictions[elem])
-        })
+            //normalize probabilities and push into result
+            uniqueClassifications.forEach(function(elem){
+                predictions[elem].probability /= totalProbability
+                result.push(predictions[elem])
+            })
+        }else{
+            result.push({
+                name: noProduct,
+                probability: 1
+            })
+        }
 
         return result
     },
